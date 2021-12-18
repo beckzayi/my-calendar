@@ -1,5 +1,5 @@
 import React from "react";
-import { Space, Row, Col } from "antd";
+import { Row, Col, Divider } from "antd";
 import AddEventButton from "./AddEventButton";
 import EventCard from "./EventCard";
 
@@ -36,12 +36,29 @@ const data = [
 
 export default () => {
   return (
-    <Space direction="vertical" size="large">
-      <div>
-        <AddEventButton />
-      </div>
+    <div>
+      <Row justify="space-between">
+        <Col span={4}>
+          <div>John Doe</div>
+          <div>
+            <a
+              href="https://calendly.com/beckzayi"
+              target="_blank"
+              rel="noreferrer"
+            >
+              calendly.com/beckzayi
+            </a>
+          </div>
+        </Col>
+        <Col span={4} key="add_event_button">
+          <AddEventButton />
+        </Col>
+      </Row>
+
+      <Divider />
+
       <div className="site-card-wrapper">
-        <Row gutter={[16, 24]}>
+        <Row gutter={[24, 24]}>
           {data.map(({ id, title, duration, eventType, bookingLink }) => (
             <Col span={8} key={id}>
               <EventCard
@@ -54,6 +71,6 @@ export default () => {
           ))}
         </Row>
       </div>
-    </Space>
+    </div>
   );
 };

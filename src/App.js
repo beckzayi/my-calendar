@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import CreateEventType from "./routes/eventType/create";
 import EventTypes from "./components/eventType";
@@ -25,6 +25,7 @@ function App() {
             </Layout>
           }
         />
+        <Route path="/" element={<Navigate to="/event_types" />} />
       </Routes>
     </BrowserRouter>
   );

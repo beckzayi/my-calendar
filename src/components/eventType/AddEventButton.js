@@ -8,7 +8,12 @@ export default () => {
   };
 
   return (
-    <Button type="primary" icon={<PlusCircleFilled />} onClick={handleClick}>
+    <Button
+      type="primary"
+      ghost
+      icon={<PlusCircleFilled />}
+      onClick={handleClick}
+    >
       New Event Type
     </Button>
   );

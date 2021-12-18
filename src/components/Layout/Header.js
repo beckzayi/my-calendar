@@ -8,7 +8,7 @@ export default () => (
   <div>
     <Menu theme="dark" mode="horizontal">
       <Menu.Item key="home">
-        <Link to="/event_types">Home</Link>
+        <Link to="/">Home</Link>
       </Menu.Item>
       {/* TODO: route availability */}
       <Menu.Item key="availability">
