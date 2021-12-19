@@ -62,6 +62,7 @@ export default () => {
           {data.map(({ id, title, duration, eventType, bookingLink }) => (
             <Col span={8} key={id}>
               <EventCard
+                id={id}
                 title={title}
                 duration={duration}
                 eventType={eventType}
