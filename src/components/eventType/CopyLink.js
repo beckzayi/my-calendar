@@ -1,19 +1,32 @@
 import React, { useState } from "react";
 import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  cursor: pointer;
+`;
 
 export default ({ link }) => {
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleClick = () => {
-    setCopied(true);
     // Copy text to clipboard
     navigator.clipboard
       .writeText(link)
-      .then(() => setTimeout(() => setCopied(false), 2500));
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      })
+      .catch((err) => setError(true));
   };
 
+  if (error) {
+    return <Wrapper>Something Wrong</Wrapper>;
+  }
+
   return (
-    <div onClick={handleClick}>
+    <Wrapper onClick={handleClick}>
       {copied ? (
         <span>
           <CheckOutlined style={{ marginRight: "4px" }} /> Copied
@@ -23,6 +36,6 @@ export default ({ link }) => {
           <CopyOutlined style={{ marginRight: "4px" }} /> Copy Link
         </span>
       )}
-    </div>
+    </Wrapper>
   );
 };
