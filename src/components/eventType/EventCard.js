@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Button } from "antd";
-import { CopyOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import CopyLink from "./CopyLink";
 
 const StyledCard = styled.div`
   position: relative;
@@ -45,8 +45,7 @@ export default ({ title, duration, eventType, bookingLink }) => (
       <WrapperShare>
         <Row justify="space-between" align="middle">
           <Col>
-            <CopyOutlined style={{ marginRight: "4px" }} />
-            Copy Link
+            <CopyLink link={bookingLink} />
           </Col>
           <Col>
             <Button type="primary" ghost shape="round" size="small">
