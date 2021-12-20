@@ -34,7 +34,7 @@ const data = [
   }
 ];
 
-export default () => {
+const EventTypes = () => {
   return (
     <div>
       <Row justify="space-between">
@@ -75,3 +75,5 @@ export default () => {
     </div>
   );
 };
+
+export default EventTypes;

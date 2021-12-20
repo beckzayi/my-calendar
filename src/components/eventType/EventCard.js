@@ -42,7 +42,7 @@ const menu = (id) => (
       <a href={`/event_types/delete/${id}`}><DeleteOutlined style={{ marginRight: '10px' }} /> Delete</a>
     </Menu.Item>
     <Menu.Divider />
-    <Menu.Item key="2" style={{ padding: '8px 14px' }}>
+    <Menu.Item key="3" style={{ padding: '8px 14px' }}>
       <Row justify="space-between" align="middle">
         <Col>On/Off</Col>
         <Col>
@@ -58,7 +58,7 @@ const menu = (id) => (
   </Menu>
 );
 
-export default ({ id, title, duration, eventType, bookingLink }) => (
+const EventCard = ({ id, title, duration, eventType, bookingLink }) => (
   <StyledCard>
     <Card title={title}>
       <Row justify="space-between" align="middle">
@@ -69,7 +69,9 @@ export default ({ id, title, duration, eventType, bookingLink }) => (
         </Col>
         <Col>
           <Dropdown overlay={() => menu(id)} trigger={['click']}>
-            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}><SettingOutlined /></a>
+            <a role="button" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              <SettingOutlined />
+            </a>
           </Dropdown>
         </Col>
       </Row>
@@ -95,3 +97,5 @@ export default ({ id, title, duration, eventType, bookingLink }) => (
     </Card>
   </StyledCard>
 );
+
+export default EventCard;

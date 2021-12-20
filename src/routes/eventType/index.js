@@ -1,7 +1,7 @@
 import React from "react";
 import EventTypes from "../../components/eventType";
 
-export default () => {
+const ListEventTypesRoute = () => {
   return (
     <div>
       <h2>List Event Types</h2>
@@ -11,3 +11,5 @@ export default () => {
     </div>
   );
 };
+
+export default ListEventTypesRoute;

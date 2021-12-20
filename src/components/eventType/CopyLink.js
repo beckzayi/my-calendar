@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-export default ({ link }) => {
+const CopyLink = ({ link }) => {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
 
@@ -39,3 +39,5 @@ export default ({ link }) => {
     </Wrapper>
   );
 };
+
+export default CopyLink;

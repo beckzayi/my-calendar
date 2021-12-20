@@ -4,7 +4,7 @@ import { Menu } from "antd";
 
 const { SubMenu } = Menu;
 
-export default () => (
+const Header = () => (
   <div>
     <Menu theme="dark" mode="horizontal">
       <Menu.Item key="home">
@@ -32,3 +32,5 @@ export default () => (
     </Menu>
   </div>
 );
+
+export default Header;

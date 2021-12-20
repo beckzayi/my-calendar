@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
 
-export default () => {
+const AddEventButton = () => {
   const handleClick = () => {
     console.log("AddEventButton");
   };
@@ -18,3 +18,5 @@ export default () => {
     </Button>
   );
 };
+
+export default AddEventButton;
