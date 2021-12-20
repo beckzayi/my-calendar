@@ -3,14 +3,18 @@ import { CopyOutlined, CheckOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  cursor: pointer;
+  cursor: ${props => props.active ? 'pointer': 'normal'};
 `;
 
-const CopyLink = ({ link }) => {
+const CopyLink = ({ link, active }) => {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    if (!active) {
+      e.preventDefault();
+      return;
+    }
     // Copy text to clipboard
     navigator.clipboard
       .writeText(link)
@@ -18,7 +22,7 @@ const CopyLink = ({ link }) => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2500);
       })
-      .catch((err) => setError(true));
+      .catch(() => setError(true));
   };
 
   if (error) {
@@ -26,7 +30,7 @@ const CopyLink = ({ link }) => {
   }
 
   return (
-    <Wrapper onClick={handleClick}>
+    <Wrapper onClick={handleClick} active={active}>
       {copied ? (
         <span>
           <CheckOutlined style={{ marginRight: "4px" }} /> Copied
