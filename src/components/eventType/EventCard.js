@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Row, Col, Button, Menu, Dropdown, Switch } from "antd";
 import { EditOutlined, CopyOutlined, DeleteOutlined, SettingOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
@@ -30,7 +30,7 @@ const WrapperShare = styled.div`
   padding: 12px 0;
 `;
 
-const menu = (id, active) => (
+const menu = (id, active, setActive) => (
   <Menu style={{ width: '160px', boxShadow: '0 1px 6px rgb(0 0 0 / 20%)' }}>
     <Menu.Item key="0" style={{ padding: '8px 14px' }}>
       <a href={`/event_types/edit/${id}`}><EditOutlined style={{ marginRight: '10px' }} /> Edit</a>
@@ -51,6 +51,7 @@ const menu = (id, active) => (
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             defaultChecked={active}
+            onChange={() => setActive(!active)}
           />
         </Col>
       </Row>
@@ -58,7 +59,15 @@ const menu = (id, active) => (
   </Menu>
 );
 
-const EventCard = ({ id, title, duration, eventType, bookingLink, active }) => {
+const EventCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
+  let [active, setActive] = useState(on);
+
+  const handleClickStatus = (status) => {
+    if (!status) {
+      setActive(true);
+    }
+  }
+
   return (
     <StyledCard active={active}>
       <Card title={title}
@@ -79,7 +88,7 @@ const EventCard = ({ id, title, duration, eventType, bookingLink, active }) => {
             </StyledInfo>
           </Col>
           <Col>
-            <Dropdown overlay={() => menu(id, active)} trigger={['click']}>
+            <Dropdown overlay={() => menu(id, active, setActive)} trigger={['click']}>
               <a role="button" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                 <SettingOutlined />
               </a>
@@ -101,7 +110,12 @@ const EventCard = ({ id, title, duration, eventType, bookingLink, active }) => {
               <CopyLink link={bookingLink} active={active} />
             </Col>
             <Col>
-              <Button type={active ? "primary": "default"} ghost={active ? true : false} shape="round" size="small">
+              <Button
+                type={active ? "primary": "default"}
+                ghost={active ? true : false}
+                shape="round" size="small"
+                onClick={() => handleClickStatus(active)}
+              >
                 {active ? 'Share' : 'Turn On'}
               </Button>
             </Col>
