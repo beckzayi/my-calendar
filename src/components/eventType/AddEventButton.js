@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
 
@@ -14,7 +15,7 @@ const AddEventButton = () => {
       icon={<PlusCircleFilled />}
       onClick={handleClick}
     >
-      New Event Type
+      <span><Link to="/event_types/new">New Event Type</Link></span>
     </Button>
   );
 };

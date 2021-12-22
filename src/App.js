@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import CreateEventType from "./routes/eventType/create";
-import EventTypes from "./components/eventType";
+import EventTypes from "./routes/eventType";
+import ScheduledEventsRoute from './routes/scheduledEvent/scheduledEvents';
 import "antd/dist/antd.css";
 
 function App() {
@@ -22,6 +23,14 @@ function App() {
           element={
             <Layout>
               <CreateEventType />
+            </Layout>
+          }
+        />
+        <Route
+          path="/scheduled_events"
+          element={
+            <Layout>
+              <ScheduledEventsRoute />
             </Layout>
           }
         />

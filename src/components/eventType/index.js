@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Divider } from "antd";
 import AddEventButton from "./AddEventButton";
 import EventCard from "./EventCard";
+import HomeMenu from "../Menu/HomeMenu";
 
 const data = [
   {
@@ -41,6 +42,9 @@ const data = [
 const EventTypes = () => {
   return (
     <div>
+      <div>
+        <HomeMenu />
+      </div>
       <Row justify="space-between">
         <Col span={4}>
           <div>John Doe</div>
