@@ -1,14 +1,15 @@
 import React from "react";
-import HomeMenu from "../Menu/HomeMenu";
+import Container from "../Layout/Container";
+import { ContainerHomeMenu } from "../Wrapper/WrapperHomeMenu";
 
 const ScheduledEvents = () => {
   return (
     <div>
-      <div>
-        <HomeMenu />
-      </div>
-      <h2>Schedule Events</h2>
-      <p>Placeholder</p>
+      <ContainerHomeMenu />
+      <Container>
+        <h2>Schedule Events</h2>
+        <p>Placeholder</p>
+      </Container>
     </div>
   );
 }
