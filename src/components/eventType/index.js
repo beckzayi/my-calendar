@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Divider } from "antd";
 import _debounce from 'lodash/debounce';
+import request from "../../util/ajax/request";
 import AddEventButton from "./AddEventButton";
 import EventTypeCard from "./EventTypeCard";
 import HomeMenu from "../Menu/HomeMenu";
@@ -9,49 +10,28 @@ import WrapperHomeMenu from "../Wrapper/WrapperHomeMenu";
 import WrapperContainer from "../Wrapper/WrapperContainer";
 import InputSearch from "../Input/Search";
 
-let data = [
-  {
-    id: "001",
-    title: "Dev Catch-up",
-    duration: "1 hr",
-    eventType: "One-on-One",
-    bookingLink: "https://calendly.com/beckzayi/dev-catch-up",
-    active: true
-  },
-  {
-    id: "002",
-    title: "Client Call",
-    duration: "30 mins",
-    eventType: "One-on-One",
-    bookingLink: "https://calendly.com/beckzayi/dev-catch-up",
-    active: true
-  },
-  {
-    id: "003",
-    title: "15 Minute Meeting",
-    duration: "15 mins",
-    eventType: "One-on-One",
-    bookingLink: "https://calendly.com/beckzayi/dev-catch-up",
-    active: false
-  },
-  {
-    id: "004",
-    title: "30 Minute Meeting",
-    duration: "30 mins",
-    eventType: "Group",
-    bookingLink: "https://calendly.com/beckzayi/dev-catch-up",
-    active: false
-  }
-];
-
 const EventTypes = () => {
-  const [types, setTypes] = useState(data);
+  const [types, setTypes] = useState(null);
+  // the original data
+  const [data, setData] = useState(null);
 
   const onChange = function(e) {
     const { value } = e.target;
-    const filteredTypes = data.filter(item => item.title.includes(value));
+    const filteredTypes = data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
     setTypes(filteredTypes);
   }
+
+  const fetchData = (url, method = "get") => {
+    request(url, method)
+      .then(response => {
+        setTypes(response.data);
+        setData(response.data);
+      });
+  }
+
+  useEffect(() => {
+    fetchData("data/eventTypes.json", 'get');
+  }, []);
 
   return (
     <div>
@@ -90,7 +70,7 @@ const EventTypes = () => {
 
           <div className="site-card-wrapper">
             <Row gutter={[24, 24]}>
-              {types.map(({ id, title, duration, eventType, bookingLink, active }) => (
+              {types && types.map(({ id, title, duration, eventType, bookingLink, active }) => (
                 <Col span={8} key={id}>
                   <EventTypeCard
                     id={id}
