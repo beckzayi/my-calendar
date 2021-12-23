@@ -3,9 +3,7 @@ import EventTypes from "../../components/eventType";
 
 const ListEventTypesRoute = () => {
   return (
-    <div>
-      <EventTypes />
-    </div>
+    <EventTypes />
   );
 };
 

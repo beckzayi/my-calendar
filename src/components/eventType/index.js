@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col, Divider } from "antd";
-import styled from "styled-components";
 import AddEventButton from "./AddEventButton";
 import EventCard from "./EventCard";
 import HomeMenu from "../Menu/HomeMenu";
 import Container from "../Layout/Container";
 import WrapperHomeMenu from "../Wrapper/WrapperHomeMenu";
+import WrapperContainer from "../Wrapper/WrapperContainer";
 
 const data = [
   {
@@ -41,11 +41,6 @@ const data = [
     active: false
   }
 ];
-
-const WrapperContainer = styled.div`
-  margin-top: 30px;
-  padding: 0 20px;
-`;
 
 const EventTypes = () => {
   return (
