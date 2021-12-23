@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Divider } from "antd";
+import _debounce from 'lodash/debounce';
 import AddEventButton from "./AddEventButton";
-import EventCard from "./EventCard";
+import EventTypeCard from "./EventTypeCard";
 import HomeMenu from "../Menu/HomeMenu";
 import Container from "../Layout/Container";
 import WrapperHomeMenu from "../Wrapper/WrapperHomeMenu";
 import WrapperContainer from "../Wrapper/WrapperContainer";
+import InputSearch from "../Input/Search";
 
-const data = [
+let data = [
   {
     id: "001",
     title: "Dev Catch-up",
@@ -43,6 +45,14 @@ const data = [
 ];
 
 const EventTypes = () => {
+  const [types, setTypes] = useState(data);
+
+  const onChange = function(e) {
+    const { value } = e.target;
+    const filteredTypes = data.filter(item => item.title.includes(value));
+    setTypes(filteredTypes);
+  }
+
   return (
     <div>
       <WrapperHomeMenu>
@@ -53,6 +63,11 @@ const EventTypes = () => {
       
       <Container>
         <WrapperContainer>
+          <Row>
+            <Col>
+              <InputSearch onChange={_debounce(onChange, 250)} />
+            </Col>
+          </Row>
           <Row justify="space-between">
             <Col span={4}>
               <div>John Doe</div>
@@ -75,9 +90,9 @@ const EventTypes = () => {
 
           <div className="site-card-wrapper">
             <Row gutter={[24, 24]}>
-              {data.map(({ id, title, duration, eventType, bookingLink, active }) => (
+              {types.map(({ id, title, duration, eventType, bookingLink, active }) => (
                 <Col span={8} key={id}>
-                  <EventCard
+                  <EventTypeCard
                     id={id}
                     title={title}
                     duration={duration}

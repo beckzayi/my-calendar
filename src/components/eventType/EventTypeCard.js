@@ -59,7 +59,7 @@ const menu = (id, active, setActive) => (
   </Menu>
 );
 
-const EventCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
+const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
   let [active, setActive] = useState(on);
 
   const handleClickStatus = (status) => {
@@ -126,4 +126,4 @@ const EventCard = ({ id, title, duration, eventType, bookingLink, active: on }) 
   );
 };
 
-export default EventCard;
+export default EventTypeCard;

@@ -8,7 +8,7 @@ const Header = () => (
   <div>
     <Menu theme="dark" mode="horizontal">
       <Menu.Item key="home">
-        <Link to="/">Home</Link>
+        <Link to="/event_types">Home</Link>
       </Menu.Item>
       {/* TODO: route availability */}
       <Menu.Item key="availability">
