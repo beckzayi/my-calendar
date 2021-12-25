@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Divider } from "antd";
+import { Row, Col, Divider, Spin, Alert } from "antd";
 import _debounce from 'lodash/debounce';
 import request from "../../util/ajax/request";
 import AddEventButton from "./AddEventButton";
@@ -10,28 +10,86 @@ import WrapperHomeMenu from "../Wrapper/WrapperHomeMenu";
 import WrapperContainer from "../Wrapper/WrapperContainer";
 import InputSearch from "../Input/Search";
 
+const url = "data/eventTypes.json";
+
 const EventTypes = () => {
-  const [types, setTypes] = useState(null);
   // the original data
   const [data, setData] = useState(null);
 
+  const [types, setTypes] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
+
   const onChange = function(e) {
+    setIsLoading(true);
     const { value } = e.target;
-    const filteredTypes = data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
-    setTypes(filteredTypes);
+
+    // Mock ajax request delay
+    setTimeout(function(){
+      const filteredTypes = data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
+      setTypes(filteredTypes);
+      setIsLoading(false);
+    }, 1500);
   }
 
+  /* TODO: wrap axios fetch in a file `useAxiosFetch`and return an object with `data`, `fetchError`, and `isLoading` */
   const fetchData = (url, method = "get") => {
+    setIsLoading(true);
     request(url, method)
       .then(response => {
         setTypes(response.data);
         setData(response.data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        setIsLoading(false);
+        setFetchError(error.message);
       });
   }
 
   useEffect(() => {
-    fetchData("data/eventTypes.json", 'get');
+    fetchData(url, "get");
   }, []);
+
+  const renderContent = (types) => {
+    if (isLoading) {
+      return (
+        <Spin tip="Loading..." size="large" style={{
+          position: "absolute",
+          left: "50%",
+          marginLeft: "-12px",
+          top: "50%",
+          marginTop: "-15px"
+        }} />
+      );
+    }
+    if (fetchError) {
+      return (
+        <Alert
+          message="Error"
+          description={`Sorry, something is wrong. ${fetchError}`}
+          type="error"
+          showIcon
+        />
+      );
+    }
+    return (
+      <Row gutter={[24, 24]}>
+        {types && types.map(({ id, title, duration, eventType, bookingLink, active }) => (
+          <Col span={8} key={id}>
+            <EventTypeCard
+              id={id}
+              title={title}
+              duration={duration}
+              eventType={eventType}
+              bookingLink={bookingLink}
+              active={active}
+            />
+          </Col>
+        ))}
+      </Row>
+    );
+  }
 
   return (
     <div>
@@ -68,21 +126,8 @@ const EventTypes = () => {
 
           <Divider />
 
-          <div className="site-card-wrapper">
-            <Row gutter={[24, 24]}>
-              {types && types.map(({ id, title, duration, eventType, bookingLink, active }) => (
-                <Col span={8} key={id}>
-                  <EventTypeCard
-                    id={id}
-                    title={title}
-                    duration={duration}
-                    eventType={eventType}
-                    bookingLink={bookingLink}
-                    active={active}
-                  />
-                </Col>
-              ))}
-            </Row>
+          <div className="site-card-wrapper" style={{ position: 'relative' }}>
+            {renderContent(types)}
           </div>
         </WrapperContainer>
       </Container>
