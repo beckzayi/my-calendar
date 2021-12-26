@@ -113,7 +113,8 @@ const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on
               <Button
                 type={active ? "primary": "default"}
                 ghost={active ? true : false}
-                shape="round" size="small"
+                shape="round"
+                size="small"
                 onClick={() => handleClickStatus(active)}
               >
                 {active ? 'Share' : 'Turn On'}

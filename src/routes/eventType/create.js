@@ -1,9 +1,10 @@
 import React from "react";
+import CreateEventType from "../../components/eventType/CreateEventType";
 
 const CreateEventTypeRoute = () => {
   return (
     <div>
-      <h2>Create New Event Type</h2>
+      <CreateEventType />
     </div>
   );
 };

@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 const WrapperContainer = styled.div`
-  margin-top: 30px;
-  margin-bottom: 30px;
-  padding: 0 20px;
+  padding: 30px 20px;
 `;
 
 export default WrapperContainer;
