@@ -5,7 +5,7 @@ import { LeftOutlined, ContactsOutlined, UsergroupAddOutlined } from "@ant-desig
 import styled from "styled-components";
 import Container from "../Layout/Container";
 import WrapperContainer from "../Wrapper/WrapperContainer";
-import WrapperSubHeder from "../Wrapper/WrapperSubHeader";
+import WrapperSubHeader from "../Wrapper/WrapperSubHeader";
 import InviteMessageBox from "./InviteMessageBox";
 
 const StyledListType = styled.li`
@@ -101,12 +101,22 @@ const CreateEventType = () => {
   );
 
   const handleClick = (type) => {
-    console.log(`Create a new Event Type ${type} - handleClick`)
+    switch(type.toLowerCase()) {
+      case 'one-on-one':
+        navigate("/event_types/new/one");
+        break;
+      case 'group':
+        navigate("/event_types/new/group");
+        break;
+      default:
+        navigate("/event_types/new/one");
+        break;
+    }
   }
 
   return (
     <div>
-      <WrapperSubHeder>
+      <WrapperSubHeader>
         <Container>
           <WrapperContainer>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -128,7 +138,7 @@ const CreateEventType = () => {
             </Row>
           </WrapperContainer>
         </Container>
-      </WrapperSubHeder>
+      </WrapperSubHeader>
       <Container>
         <WrapperContainer>
           {renderTypes(newTypes)}

@@ -11,7 +11,7 @@ const PageLayout = ({ children }) => {
           <Header />
         </Container>
       </Layout.Header>
-      <Layout.Content>
+      <Layout.Content style={{ background: "#fff" }}>
         {children}
       </Layout.Content>
     </Layout>

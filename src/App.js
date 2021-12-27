@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import CreateEventType from "./routes/eventType/create";
 import EventTypes from "./routes/eventType";
-import ScheduledEventsRoute from './routes/scheduledEvent/scheduledEvents';
+import ScheduledEventsRoute from "./routes/scheduledEvent/scheduledEvents";
+import CreateOneOnOneRoute from "./routes/eventType/one-on-one/create";
 import "antd/dist/antd.css";
 
 function App() {
@@ -31,6 +32,14 @@ function App() {
           element={
             <Layout>
               <ScheduledEventsRoute />
+            </Layout>
+          }
+        />
+        <Route
+          path="/event_types/new/one"
+          element={
+            <Layout>
+              <CreateOneOnOneRoute />
             </Layout>
           }
         />
