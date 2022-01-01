@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Row, Col, Divider, Spin, Alert } from "antd";
 import _debounce from 'lodash/debounce';
-import request from "../../util/ajax/request";
 import AddEventButton from "./AddEventButton";
 import EventTypeCard from "./EventTypeCard";
 import HomeMenu from "../Menu/HomeMenu";
@@ -9,14 +9,15 @@ import Container from "../Layout/Container";
 import WrapperHomeMenu from "../Wrapper/WrapperHomeMenu";
 import WrapperContainer from "../Wrapper/WrapperContainer";
 import InputSearch from "../Input/Search";
+import httpRequest from "../../util/ajax/request";
+import { retrieveEventTypes, findEventTypesByTitle } from "../../state/actions/eventType";
 
 const url = "data/eventTypes.json";
 
 const EventTypes = () => {
-  // the original data
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const eventTypes = useSelector(state => state.eventType);
 
-  const [types, setTypes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState(null);
 
@@ -26,30 +27,36 @@ const EventTypes = () => {
 
     // Mock ajax request delay
     setTimeout(function(){
-      const filteredTypes = data.filter(item => item.title.toLowerCase().includes(value.toLowerCase()));
-      setTypes(filteredTypes);
+      /* TODO: need to set up backend API endpoint to retrieve all event types by title, then dispatch(retrieveEventTypes(response.data)) */
+      dispatch(findEventTypesByTitle(value));
       setIsLoading(false);
     }, 1500);
   }
 
-  /* TODO: wrap axios fetch in a file `useAxiosFetch`and return an object with `data`, `fetchError`, and `isLoading` */
-  const fetchData = (url, method = "get") => {
-    setIsLoading(true);
-    request(url, method)
-      .then(response => {
-        setTypes(response.data);
-        setData(response.data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        setIsLoading(false);
-        setFetchError(error.message);
-      });
-  }
+  
 
   useEffect(() => {
+    /**
+     * TODO: wrap axios fetch in a file `useAxiosFetch`and return an object with `data`, `fetchError`, and `isLoading`
+     * https://github.com/gitdagray/react_custom_hooks/blob/main/src/hooks/useAxiosFetch.js
+     * https://www.youtube.com/watch?v=tBuceoEGFhI
+     * https://www.robinwieruch.de/react-hooks-fetch-data/
+     */
+    const fetchData = (url, method = "get") => {
+      setIsLoading(true);
+      httpRequest(url, method)
+        .then(response => {
+          dispatch(retrieveEventTypes(response.data));
+          setIsLoading(false);
+        })
+        .catch(error => {
+          setIsLoading(false);
+          setFetchError(error.message);
+        });
+    }
+
     fetchData(url, "get");
-  }, []);
+  }, [dispatch]);
 
   const renderContent = (types) => {
     if (isLoading) {
@@ -127,7 +134,7 @@ const EventTypes = () => {
           <Divider />
 
           <div className="site-card-wrapper" style={{ position: 'relative' }}>
-            {renderContent(types)}
+            {renderContent(eventTypes)}
           </div>
         </WrapperContainer>
       </Container>

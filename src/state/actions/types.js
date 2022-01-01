@@ -1,0 +1,18 @@
+/**
+ * Event Type
+ */
+export const CREATE_EVENT_TYPE = "CREATE_EVENT_TYPE";
+export const RETRIEVE_EVENT_TYPES = "RETRIEVE_EVENT_TYPES";
+export const UPDATE_EVENT_TYPE = "UPDATE_EVENT_TYPE";
+export const DELETE_EVENT_TYPE = "DELETE_EVENT_TYPE";
+export const FIND_EVENT_TYPE_BY_ID = "FIND_EVENT_TYPE_BY_ID";
+export const FIND_EVENT_TYPES_BY_TITLE = "FIND_EVENT_TYPES_BY_TITLE";
+
+/**
+ * User
+ */
+export const CREATE_USER = "CREATE_USER";
+export const RETRIEVE_USERS = "RETRIEVE_USERS";
+export const UPDATE_USER = "UPDATE_USER";
+export const DELETE_USER = "DELETE_USER";
+export const FIND_USER_BY_ID = "FIND_USER_BY_ID";

@@ -5,6 +5,7 @@ import CreateEventType from "./routes/eventType/create";
 import EventTypes from "./routes/eventType";
 import ScheduledEventsRoute from "./routes/scheduledEvent/scheduledEvents";
 import CreateOneOnOneRoute from "./routes/eventType/one-on-one/create";
+import UserRoute from "./routes/user/users";
 import "antd/dist/antd.css";
 
 function App() {
@@ -40,6 +41,14 @@ function App() {
           element={
             <Layout>
               <CreateOneOnOneRoute />
+            </Layout>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <Layout>
+              <UserRoute />
             </Layout>
           }
         />
