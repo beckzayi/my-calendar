@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
         return (eventType.id === payload.id) ? { ...eventType, ...payload } : eventType;
       });
     case DELETE_EVENT_TYPE:
-      return state.filter(eventType => eventType.id !== payload.id);
+      return state.filter(eventType => eventType.id !== payload);
     case FIND_EVENT_TYPES_BY_TITLE:
       return initialState.filter(et => et.title.toLowerCase().includes(payload.toLowerCase()));
     default:

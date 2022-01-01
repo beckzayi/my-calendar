@@ -24,10 +24,10 @@ export const updateEventType = (eventType) => (dispatch) =>
     payload: eventType
   });
 
-export const deleteEventType = (eventType) => (dispatch) =>
+export const deleteEventType = (id) => (dispatch) =>
   dispatch({
     type: DELETE_EVENT_TYPE,
-    payload: eventType
+    payload: id
   });
 
 export const findEventTypesByTitle = (title) => (dispatch) =>

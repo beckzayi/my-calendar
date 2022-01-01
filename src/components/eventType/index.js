@@ -54,9 +54,10 @@ const EventTypes = () => {
           setFetchError(error.message);
         });
     }
-
-    fetchData(url, "get");
-  }, [dispatch]);
+    if (eventTypes.length === 0) {
+      fetchData(url, "get");
+    }
+  }, [dispatch, eventTypes.length]);
 
   const renderContent = (types) => {
     if (isLoading) {

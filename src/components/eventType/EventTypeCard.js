@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Card, Row, Col, Button, Menu, Dropdown, Switch } from "antd";
+import { useDispatch } from "react-redux";
+import { Card, Row, Col, Button, Menu, Dropdown, Switch, Modal } from "antd";
 import { EditOutlined, CopyOutlined, DeleteOutlined, SettingOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import CopyLink from "./CopyLink";
+import { deleteEventType } from "../../state/actions/eventType";
 
 const StyledCard = styled.div`
   position: relative;
@@ -30,42 +32,59 @@ const WrapperShare = styled.div`
   padding: 12px 0;
 `;
 
-const menu = (id, active, setActive) => (
-  <Menu style={{ width: '160px', boxShadow: '0 1px 6px rgb(0 0 0 / 20%)' }}>
-    <Menu.Item key="0" style={{ padding: '8px 14px' }}>
-      <a href={`/event_types/edit/${id}`}><EditOutlined style={{ marginRight: '10px' }} /> Edit</a>
-    </Menu.Item>
-    <Menu.Item key="1" style={{ padding: '8px 14px' }}>
-      <a href={`/event_types/clone/${id}`}><CopyOutlined style={{ marginRight: '10px' }} /> Clone</a>
-    </Menu.Item>
-    <Menu.Item key="2" style={{ padding: '8px 14px' }}>
-      <a href={`/event_types/delete/${id}`}><DeleteOutlined style={{ marginRight: '10px' }} /> Delete</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3" style={{ padding: '8px 14px' }}>
-      <Row justify="space-between" align="middle">
-        <Col>On/Off</Col>
-        <Col>
-          <Switch
-            size="small"
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            defaultChecked={active}
-            onChange={() => setActive(!active)}
-          />
-        </Col>
-      </Row>
-    </Menu.Item>
-  </Menu>
-);
-
 const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
   let [active, setActive] = useState(on);
+  const dispatch = useDispatch();
 
   const handleClickStatus = (status) => {
     if (!status) {
       setActive(true);
     }
+  }
+
+  const CardMenu = (id, active, setActive) => {
+    const handleDelete = (e, id) => {
+      e.preventDefault();
+      Modal.confirm({
+        title: `Delete ${title}`,
+        icon: <DeleteOutlined style={{ color: "#ff7875" }} />,
+        content: "Users will be unable to schedule further meetings with deleted event types. Meetings previously scheduled will not be affected.",
+        okText: "Yes",
+        okType: "danger",
+        onOk() {
+          dispatch(deleteEventType(id));
+        }
+      });
+    }
+
+    return (
+      <Menu style={{ width: '160px', boxShadow: '0 1px 6px rgb(0 0 0 / 20%)' }}>
+        <Menu.Item key="0" style={{ padding: '8px 14px' }}>
+          <a href={`/event_types/edit/${id}`}><EditOutlined style={{ marginRight: '10px' }} /> Edit</a>
+        </Menu.Item>
+        <Menu.Item key="1" style={{ padding: '8px 14px' }}>
+          <a href={`/event_types/clone/${id}`}><CopyOutlined style={{ marginRight: '10px' }} /> Clone</a>
+        </Menu.Item>
+        <Menu.Item key="2" style={{ padding: '8px 14px' }}>
+          <a onClick={(e) => handleDelete(e, id)}><DeleteOutlined style={{ marginRight: '10px' }} /> Delete</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="3" style={{ padding: '8px 14px' }}>
+          <Row justify="space-between" align="middle">
+            <Col>On/Off</Col>
+            <Col>
+              <Switch
+                size="small"
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                defaultChecked={active}
+                onChange={() => setActive(!active)}
+              />
+            </Col>
+          </Row>
+        </Menu.Item>
+      </Menu>
+    );
   }
 
   return (
@@ -77,9 +96,6 @@ const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on
         headStyle={{
           color: active ? '#020a2c' : '#b2b2b2'
         }}
-        bodyStyle={{
-
-        }}
       >
         <Row justify="space-between" align="middle">
           <Col>
@@ -88,7 +104,7 @@ const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on
             </StyledInfo>
           </Col>
           <Col>
-            <Dropdown overlay={() => menu(id, active, setActive)} trigger={['click']}>
+            <Dropdown overlay={() => CardMenu(id, title, active, setActive)} trigger={['click']}>
               <a role="button" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                 <SettingOutlined />
               </a>
