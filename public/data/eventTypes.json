@@ -1,32 +1,32 @@
 [
   {
-    "id": "001",
+    "id": 1,
     "title": "Dev Catch-up",
-    "duration": "1 hr",
+    "duration": 60,
     "eventType": "One-on-One",
     "bookingLink": "https://calendly.com/beckzayi/dev-catch-up",
     "active": true
   },
   {
-    "id": "002",
+    "id": 2,
     "title": "Client Call",
-    "duration": "30 mins",
+    "duration": 90,
     "eventType": "One-on-One",
     "bookingLink": "https://calendly.com/beckzayi/client-call",
     "active": true
   },
   {
-    "id": "003",
+    "id": 3,
     "title": "15 Minute Meeting",
-    "duration": "15 mins",
+    "duration": 15,
     "eventType": "One-on-One",
     "bookingLink": "https://calendly.com/beckzayi/15min",
     "active": false
   },
   {
-    "id": "004",
+    "id": 4,
     "title": "30 Minute Meeting",
-    "duration": "30 mins",
+    "duration": 30,
     "eventType": "Group",
     "bookingLink": "https://calendly.com/beckzayi/30min",
     "active": false

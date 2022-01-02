@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Button, Form, Input, Select } from "antd";
+import { useDispatch } from "react-redux";
+import { Row, Col, Button, Form, Input, Select, message } from "antd";
 import { LeftOutlined, EnvironmentOutlined, PhoneOutlined, CameraOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import Container from "../../Layout/Container";
 import WrapperContainer from "../../Wrapper/WrapperContainer";
 import WrapperSubHeader from "../../Wrapper/WrapperSubHeader";
+import { createEventType } from "../../../state/actions/eventType";
 
 const pageTitle = "Create One-on-One Event Type",
   link = "/event_types/new";
@@ -43,7 +45,8 @@ const WrapperFormButtons = styled.div`
 `;
 
 const CreateOneOnOne = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(),
+    dispatch = useDispatch();
 
   const [name, setName] = useState(null),
     [location, setLocation] = useState(null);
@@ -109,8 +112,23 @@ const CreateOneOnOne = () => {
   const [form] = Form.useForm();
 
   const renderForm = () => {
-    const handleSubmit = (value) => {
-      console.log("handleSubmit", value);
+    const handleSubmit = (values) => {
+      const initialObj = {
+        id: Math.ceil(Math.random() * 1000),
+        eventType: "One-on-One",
+        duration: "30 mins",
+        active: false,
+      };
+      const obj = {
+        ...initialObj,
+        ...values
+      }
+      
+      /**
+       * TODO: backend API call for creating a new Event Type with axios post
+       */
+      dispatch(createEventType(obj));
+      message.success("Saved");
     }
     return (
       <StyledWrapperForm>
@@ -127,7 +145,7 @@ const CreateOneOnOne = () => {
           <WrapperFormMainSection>
             <Form.Item
               label="Event name"
-              name="name"
+              name="title"
               rules={[{ required: true, message: 'Please input the event name' }]}
               tooltip="Enter a name for your event. The circled text in the screen shot below is the event name."
             >
@@ -141,8 +159,8 @@ const CreateOneOnOne = () => {
             >
               <Select placeholder="Add a location" allowClear={true} onChange={handleChangeLocation}>
                 <Select.Option value="in-person"><EnvironmentOutlined style={{ color: "#1890ff", marginRight: "8px" }} />In-person meeting</Select.Option>
-                <Select.Option value="phone"><PhoneOutlined style={{ color: "#1890ff", marginRight: "8px" }} /> Phone call</Select.Option>
-                <Select.Option value="zoom"><CameraOutlined style={{ color: "#1890ff", marginRight: "8px" }} /> Zoom</Select.Option>
+                <Select.Option value="phone"><PhoneOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Phone call</Select.Option>
+                <Select.Option value="zoom"><CameraOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Zoom</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item
@@ -155,7 +173,7 @@ const CreateOneOnOne = () => {
             </Form.Item>
             <Form.Item
               label="Event link"
-              name="link"
+              name="bookingLink"
               rules={[{ required: true, message: 'Please input the event link' }]}
               tooltip="Event URL is the link you can share with your invitees if you want them to bypass the 'Pick Event' step on your Calendly page and go directly to the 'Pick Date & Time' step. The event URL is circled in the sample below. We'll automatically generate an Event URL for you if you don't specify one."
             >

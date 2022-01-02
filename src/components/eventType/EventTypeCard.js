@@ -32,9 +32,26 @@ const WrapperShare = styled.div`
   padding: 12px 0;
 `;
 
+/**
+ * Generate time duration text, such as `1 hr 30 mins`
+ * @param {number} mins - minutes, such as `30`, `60`, and `90` etc.
+ * @returns {string}
+ */
+function generateDurationText(mins) {
+  if (mins < 60) {
+    return `${mins} mins`;
+  } else if (mins < 120) {
+    return (mins % 60 !== 0) ? `1 hr ${mins % 60} mins` : `1 hr`;
+  } else if (mins >= 120) {
+    return (mins % 60 !== 0) ? `${Math.floor(mins / 60)} hrs ${mins % 60} mins` : `${Math.floor(mins / 60)} hrs`;
+  }
+}
+
 const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
   let [active, setActive] = useState(on);
   const dispatch = useDispatch();
+
+  let duration_text = generateDurationText(duration);
 
   const handleClickStatus = (status) => {
     if (!status) {
@@ -100,7 +117,7 @@ const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on
         <Row justify="space-between" align="middle">
           <Col>
             <StyledInfo>
-              {duration}, {eventType}
+              {duration_text}, {eventType}
             </StyledInfo>
           </Col>
           <Col>
