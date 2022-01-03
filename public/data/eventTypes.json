@@ -4,6 +4,7 @@
     "title": "Dev Catch-up",
     "duration": 60,
     "eventType": "One-on-One",
+    "location": "in-person",
     "bookingLink": "https://calendly.com/beckzayi/dev-catch-up",
     "active": true
   },
@@ -12,6 +13,7 @@
     "title": "Client Call",
     "duration": 90,
     "eventType": "One-on-One",
+    "location": "phone",
     "bookingLink": "https://calendly.com/beckzayi/client-call",
     "active": true
   },
@@ -20,6 +22,7 @@
     "title": "15 Minute Meeting",
     "duration": 15,
     "eventType": "One-on-One",
+    "location": "phone",
     "bookingLink": "https://calendly.com/beckzayi/15min",
     "active": false
   },
@@ -28,6 +31,7 @@
     "title": "30 Minute Meeting",
     "duration": 30,
     "eventType": "Group",
+    "location": "zoom",
     "bookingLink": "https://calendly.com/beckzayi/30min",
     "active": false
   }

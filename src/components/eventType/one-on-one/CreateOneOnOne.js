@@ -44,6 +44,21 @@ const WrapperFormButtons = styled.div`
   margin-left: auto;
 `;
 
+const locationOptions = [
+  {
+    value: "in-person",
+    display: <span><EnvironmentOutlined style={{ color: '#1890ff', marginRight: '8px' }} />In-person meeting</span>
+  },
+  {
+    value: "phone",
+    display: <span><PhoneOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Phone call</span>
+  },
+  {
+    value: "zoom",
+    display: <span><CameraOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Zoom</span>
+  },
+];
+
 const CreateOneOnOne = () => {
   const navigate = useNavigate(),
     dispatch = useDispatch();
@@ -106,7 +121,8 @@ const CreateOneOnOne = () => {
   }
 
   const handleChangeLocation = (value) => {
-    setLocation(value);
+    const option = locationOptions.find(opt => opt.value === value);
+    setLocation(option.display);
   }
 
   const [form] = Form.useForm();
@@ -158,9 +174,11 @@ const CreateOneOnOne = () => {
               tooltip="Use the 'Location' field to specify how and where both parties will connect at the scheduled time. The location entered here will appear on the confirmation page after events are scheduled and in the calendar event added to both you and your invitee's calendars."
             >
               <Select placeholder="Add a location" allowClear={true} onChange={handleChangeLocation}>
-                <Select.Option value="in-person"><EnvironmentOutlined style={{ color: "#1890ff", marginRight: "8px" }} />In-person meeting</Select.Option>
-                <Select.Option value="phone"><PhoneOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Phone call</Select.Option>
-                <Select.Option value="zoom"><CameraOutlined style={{ color: "#1890ff", marginRight: "8px" }} />Zoom</Select.Option>
+                {locationOptions.map(opt => (
+                  <Select.Option key={opt.value} value={opt.value}>
+                    {opt.display}
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
             <Form.Item

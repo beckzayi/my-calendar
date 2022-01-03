@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Card, Row, Col, Button, Menu, Dropdown, Switch, Modal } from "antd";
 import { EditOutlined, CopyOutlined, DeleteOutlined, SettingOutlined, CheckOutlined, CloseOutlined } from "@ant-design/icons";
@@ -49,7 +50,9 @@ function generateDurationText(mins) {
 
 const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on }) => {
   let [active, setActive] = useState(on);
-  const dispatch = useDispatch();
+
+  const dispatch = useDispatch(),
+    navigate = useNavigate();
 
   let duration_text = generateDurationText(duration);
 
@@ -74,13 +77,18 @@ const EventTypeCard = ({ id, title, duration, eventType, bookingLink, active: on
       });
     }
 
+    const handleClickEdit = (e, id) => {
+      e.preventDefault();
+      navigate(`/event_types/${id}/edit`)
+    }
+
     return (
       <Menu style={{ width: '160px', boxShadow: '0 1px 6px rgb(0 0 0 / 20%)' }}>
         <Menu.Item key="0" style={{ padding: '8px 14px' }}>
-          <a href={`/event_types/edit/${id}`}><EditOutlined style={{ marginRight: '10px' }} /> Edit</a>
+          <a onClick={(e) => handleClickEdit(e, id)}><EditOutlined style={{ marginRight: '10px' }} /> Edit</a>
         </Menu.Item>
         <Menu.Item key="1" style={{ padding: '8px 14px' }}>
-          <a href={`/event_types/clone/${id}`}><CopyOutlined style={{ marginRight: '10px' }} /> Clone</a>
+          <a href={`/event_types/${id}/clone`}><CopyOutlined style={{ marginRight: '10px' }} /> Clone</a>
         </Menu.Item>
         <Menu.Item key="2" style={{ padding: '8px 14px' }}>
           <a onClick={(e) => handleDelete(e, id)}><DeleteOutlined style={{ marginRight: '10px' }} /> Delete</a>

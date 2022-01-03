@@ -12,7 +12,7 @@ import InputSearch from "../Input/Search";
 import httpRequest from "../../util/ajax/request";
 import { retrieveEventTypes, findEventTypesByTitle } from "../../state/actions/eventType";
 
-const url = "data/eventTypes.json";
+const url = "/data/eventTypes.json";
 
 const EventTypes = () => {
   const dispatch = useDispatch();
