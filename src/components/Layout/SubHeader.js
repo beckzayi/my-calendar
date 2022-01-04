@@ -6,9 +6,9 @@ import Container from "./Container";
 import WrapperContainer from "../Wrapper/WrapperContainer";
 import WrapperSubHeader from "../Wrapper/WrapperSubHeader";
 
-const SubHeader = ({ pageTitle, link }) => {
+const SubHeader = ({ pageTitle, previousLink }) => {
   const navigate = useNavigate(),
-    handleClick = (link) => navigate(link);
+    handleClick = (previousLink) => navigate(previousLink);
   
   return (
     <WrapperSubHeader>
@@ -22,7 +22,7 @@ const SubHeader = ({ pageTitle, link }) => {
                 shape="round"
                 size="large"
                 icon={<LeftOutlined />}
-                onClick={() => handleClick(link)}
+                onClick={() => handleClick(previousLink)}
               >
                 Back
               </Button>

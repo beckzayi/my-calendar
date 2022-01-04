@@ -65,7 +65,7 @@ const EditOneOnOne = () => {
 
   return (
     <div>
-      <SubHeader pageTitle="Edit One-on-One Event Type" link="/event_types" />
+      <SubHeader pageTitle="Edit One-on-One Event Type" previousLink="/event_types" />
 
       {renderContent(eventType)}
     </div>

@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
     case CREATE_EVENT_TYPE:
       return [...state, payload];
     case RETRIEVE_EVENT_TYPES:
-      initialState = [...initialState, ...payload]; // TODO: will need to remove this which is for finding event types by title
+      // initialState = [...initialState, ...payload]; // TODO: will need to remove this which is for finding event types by title
       return payload;
     case UPDATE_EVENT_TYPE:
       return state.map(eventType => {
