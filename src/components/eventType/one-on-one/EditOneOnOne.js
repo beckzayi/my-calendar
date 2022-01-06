@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Spin } from "antd";
+import { Spin, Collapse } from "antd";
 import Container from "../../Layout/Container";
 import WrapperContainer from "../../Wrapper/WrapperContainer";
 import SubHeader from "../../Layout/SubHeader";
 import EventTypeGeneral from "./EventTypeGeneral";
 import EventTypeTimeDetail from "./EventTypeTimeDetail";
 import httpRequest from "../../../util/ajax/request";
+import EventTypeMainForm from "../../Form/EventType/EventTypeMainForm";
 
 const url = "/data/eventTypes.json";
 
@@ -53,11 +54,19 @@ const EditOneOnOne = () => {
       );
     }
 
+    const onChange = () => {}
+
     return (
       <Container>
         <WrapperContainer>
-          <EventTypeGeneral eventType={eventType} />
-          <EventTypeTimeDetail />
+          <Collapse accordion defaultActiveKey={["1"]} className="custom-collapse" onChange={onChange}>
+            <Collapse.Panel header={<EventTypeGeneral eventType={eventType} />} key="1" className="custom-panel">
+              <EventTypeMainForm eventType={eventType} previousLink="/event_types" />
+            </Collapse.Panel>
+            <Collapse.Panel header={<EventTypeTimeDetail />} key="2">
+              <EventTypeTimeDetail />
+            </Collapse.Panel>
+          </Collapse>
         </WrapperContainer>
       </Container>
     )
@@ -66,8 +75,7 @@ const EditOneOnOne = () => {
   return (
     <div>
       <SubHeader pageTitle="Edit One-on-One Event Type" previousLink="/event_types" />
-
-      {renderContent(eventType)}
+      {eventType && renderContent(eventType)}
     </div>
   )
 }

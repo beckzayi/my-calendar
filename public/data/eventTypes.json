@@ -6,7 +6,8 @@
     "eventType": "One-on-One",
     "location": "in-person",
     "bookingLink": "https://calendly.com/beckzayi/dev-catch-up",
-    "active": true
+    "active": true,
+    "description": "Des1"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "eventType": "One-on-One",
     "location": "phone",
     "bookingLink": "https://calendly.com/beckzayi/client-call",
-    "active": true
+    "active": true,
+    "description": "Des2"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "eventType": "One-on-One",
     "location": "phone",
     "bookingLink": "https://calendly.com/beckzayi/15min",
-    "active": false
+    "active": false,
+    "description": "Des3"
   },
   {
     "id": 4,
@@ -33,6 +36,7 @@
     "eventType": "Group",
     "location": "zoom",
     "bookingLink": "https://calendly.com/beckzayi/30min",
-    "active": false
+    "active": false,
+    "description": "Des4"
   }
 ]

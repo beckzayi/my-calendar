@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { EnvironmentOutlined, PhoneOutlined, CameraOutlined } from "@ant-design/icons";
-import WrapperBox from "../../Wrapper/WrapperBox";
-import EventTypeMainForm from "../../Form/EventType/EventTypeMainForm";
-
-const previousLink = "/event_types";
 
 const StyledSummaryInput = styled.div`
   font-size: 12px;
@@ -40,11 +36,8 @@ const EventTypeGeneral = ({ eventType }) => {
 
   return (
     <div>
-      <WrapperBox>
-        <div>What event is this?</div>
-        <StyledSummaryInput>{ title }, { renderLocation(location) }</StyledSummaryInput>
-      </WrapperBox>
-      <EventTypeMainForm previousLink={previousLink} eventType={eventType} />
+      <div>What event is this?</div>
+      <StyledSummaryInput>{ title }, { renderLocation(location) }</StyledSummaryInput>
     </div>
   )
 }

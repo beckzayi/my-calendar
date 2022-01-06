@@ -1,11 +1,10 @@
 import React from "react";
-import WrapperBox from "../../Wrapper/WrapperBox";
 
 const EventTypeTimeDetail = () => {
   return (
-    <WrapperBox>
+    <div>
       <div>When can people book this event?</div>
-    </WrapperBox>
+    </div>
   )
 }
 
