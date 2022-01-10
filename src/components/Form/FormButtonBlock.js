@@ -9,10 +9,16 @@ const WrapperFormButtons = styled.div`
 
 const FormButtonBlock = (props) => {
   const navigate = useNavigate();
+  const onClickCancel = (props) => {
+    if (props.previousLink) {
+      navigate(props.previousLink);
+    }
+  }
+
   return (
     <WrapperFormButtons>
-      <Form.Item style={{ marginBottom: "0" }}>
-        <Button type="text" shape="round" onClick={() => navigate(props.previousLink)}>
+      <Form.Item style={{ marginBottom: 0 }}>
+        <Button type="text" shape="round" onClick={() => onClickCancel(props)}>
           Cancel
         </Button>
         <Button type="primary" shape="round" htmlType="submit">

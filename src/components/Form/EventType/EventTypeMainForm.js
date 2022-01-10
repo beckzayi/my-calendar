@@ -31,7 +31,7 @@ const WrapperFormFooter = styled.div`
 const locationOptions = [
   {
     value: "in-person",
-    display: <span><EnvironmentOutlined style={{ color: '#1890ff', marginRight: '8px' }} />In-person meeting</span>
+    display: <span><EnvironmentOutlined style={{ color: "#1890ff", marginRight: "8px" }} />In-person meeting</span>
   },
   {
     value: "phone",
@@ -43,7 +43,7 @@ const locationOptions = [
   },
 ];
 
-export const EventTypeMainForm = (props) => {
+const EventTypeMainForm = (props) => {
   const previousLink = props.previousLink || "/event_types/new";
 
   const dispatch = useDispatch();
@@ -103,7 +103,7 @@ export const EventTypeMainForm = (props) => {
     >
       <WrapperFormHeader>
         <FormSummary />
-        <FormButtonBlock previousLink={previousLink} />
+        <FormButtonBlock />
       </WrapperFormHeader>
 
       <WrapperFormMainSection>

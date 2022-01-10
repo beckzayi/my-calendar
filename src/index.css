@@ -26,6 +26,11 @@ label {
   font-weight: bold;
 }
 
+label.ant-radio-wrapper,
+label.ant-radio-button-wrapper {
+  font-weight: normal;
+}
+
 .text-center {
   text-align: center;
 }

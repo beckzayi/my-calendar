@@ -1,0 +1,37 @@
+[
+  {
+    "day": "sun",
+    "start": null,
+    "end": null
+  },
+  {
+    "day": "mon",
+    "start": "8:30",
+    "end": "18:00"
+  },
+  {
+    "day": "tue",
+    "start": "8:30",
+    "end": "18:00"
+  },
+  {
+    "day": "wed",
+    "start": "8:30",
+    "end": "18:00"
+  },
+  {
+    "day": "thu",
+    "start": "8:30",
+    "end": "18:00"
+  },
+  {
+    "day": "fri",
+    "start": "8:30",
+    "end": "18:00"
+  },
+  {
+    "day": "sat",
+    "start": "10:00",
+    "end": "15:30"
+  }
+]

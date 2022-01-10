@@ -9,6 +9,7 @@ import EventTypeGeneral from "./EventTypeGeneral";
 import EventTypeTimeDetail from "./EventTypeTimeDetail";
 import httpRequest from "../../../util/ajax/request";
 import EventTypeMainForm from "../../Form/EventType/EventTypeMainForm";
+import EventTypeTimeDetailForm from "../../Form/EventType/EventTypeTimeDetailForm";
 
 const url = "/data/eventTypes.json";
 
@@ -64,7 +65,7 @@ const EditOneOnOne = () => {
               <EventTypeMainForm eventType={eventType} previousLink="/event_types" />
             </Collapse.Panel>
             <Collapse.Panel header={<EventTypeTimeDetail />} key="2">
-              <EventTypeTimeDetail />
+              <EventTypeTimeDetailForm eventType={eventType} previousLink="/event_types" />
             </Collapse.Panel>
           </Collapse>
         </WrapperContainer>
