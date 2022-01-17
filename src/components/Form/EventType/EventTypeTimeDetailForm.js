@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Form,
+  Checkbox,
   DatePicker,
   Input,
   InputNumber,
@@ -8,6 +9,7 @@ import {
   Select,
   Space,
   Table,
+  TimePicker,
   message } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
 import styled from "styled-components";
@@ -17,6 +19,12 @@ import FormButtonBlock from "../FormButtonBlock";
 const WrapperFormHeader = styled.div`
   padding: 16px 24px;
   border-bottom: 1px solid #d0d0d0;
+  display: flex;
+`;
+
+const WrapperFormFooter = styled.div`
+  padding: 16px 24px;
+  border-top: 1px solid #d0d0d0;
   display: flex;
 `;
 
@@ -66,6 +74,10 @@ const StyledRuleScheduleHours = styled.div`
   border: 1px solid #cccccc;
   padding: 16px 20px 16px 20px;
   margin-top: 20px;
+`;
+
+const WrapperTd = styled.td`
+  padding: 16px;
 `;
 
 const FormSummary = () => (
@@ -140,7 +152,6 @@ const RuleContent = () => {
   const [rule, setRule] = useState(1);
 
   const handleRuleChange = (e) => {
-    console.log('handleRuleChange', e.target.value)
     setRule(e.target.value);
   }
 
@@ -196,24 +207,135 @@ const RuleExistingSchedule = () => {
   return (
     <div>
       <div>
-        <div>
-          <GlobalOutlined style={{ marginRight: 10 }} />{getTimeZone()}
-        </div>
-        <StyledRuleScheduleHours>
-          <div style={{ padding: "6px 14px" }}>
-            <strong>WEEKLY HOURS</strong>
-          </div>
-          {dataSource && <Table dataSource={dataSource} columns={columns} showHeader={false} pagination={false} />}
-        </StyledRuleScheduleHours>
+        <GlobalOutlined style={{ marginRight: 10 }} />{getTimeZone()}
       </div>
+      <StyledRuleScheduleHours>
+        <div style={{ padding: "6px 14px" }}>
+          <strong>WEEKLY HOURS</strong>
+        </div>
+        {dataSource && <Table dataSource={dataSource} columns={columns} showHeader={false} pagination={false} />}
+      </StyledRuleScheduleHours>
     </div>
   );
 }
 
+const renderOptions = () => {
+  const options = [];
+  for (let i = 0; i < 24; i++) {
+    let hour = i < 10 ? "0" + i : i + "";
+    for (let k = 0; k < 60; k = k + 15) {
+      let min = k === 0 ? "00" : k + "";
+      options.push(
+        <Select.Option value={`${hour}:${min}`} key={i * 60 + k}>
+          {`${hour}:${min}`}
+        </Select.Option>
+      )
+    }
+  }
+  return options;
+}
+
+const RuleDay = ({ day, start, end }) => {
+  const [checked, setChecked] = useState((start && end) ? true : false);
+  const [startTime, setStartTime] = useState(start);
+  const [endTime, setEndTime] = useState(end);
+  const [error, setError] = useState(false);
+
+  const onChangeCheck = (e) => {
+    setChecked(e.target.checked);
+  }
+
+  const onChangeStartTime = (value) => {
+    setStartTime(value);
+    if (isTimeError(value, endTime)) {
+      return setError(true);
+    }
+    return  setError(false);
+  }
+
+  const onChangeEndTime = (value) => {
+    setEndTime(value);
+    if (isTimeError(startTime, value)) {
+      return setError(true);
+    }
+    return setError(false);
+  }
+
+  const isTimeError = (start, end) => {
+    return (start >= end);
+  }
+
+  return (
+    <>
+      <WrapperTd>
+        <Checkbox checked={checked} onChange={onChangeCheck} />
+      </WrapperTd>
+      <WrapperTd style={{ width: "80px" }}>
+        <strong>{day.toUpperCase()}</strong>
+      </WrapperTd>
+      
+      <WrapperTd>
+        {checked ? 
+          <Form.Item name={`start-${day}`} noStyle>
+            <Select style={{ width: 80 }} onChange={onChangeStartTime}>
+              {renderOptions()}
+            </Select>
+          </Form.Item>
+          : "Unavailable"
+        }
+      </WrapperTd>
+      <WrapperTd>
+        {checked ?
+          <Form.Item name={`end-${day}`} noStyle>
+            <Select style={{ width: 80 }} onChange={onChangeEndTime}>
+              {renderOptions()}
+            </Select>
+          </Form.Item>
+          : " "
+        }
+      </WrapperTd>
+    
+      {error && <div style={{ paddingLeft: "20px", color: "#ff4d4f" }}>Choose an end time later than the start time</div>}
+    </>
+  );
+}
+
 const RuleCustomSchedule = () => {
+  /**
+   * TODO: retrieve hours from the eventType object instead of customerHours.json
+   */
+  const url = "/data/customHours.json";
+
+  const [dataSource, setDataSource] = useState(null);
+
+  useEffect(() => {
+    const fetchData = (url) => {
+      axios.get(url).then((response) => setDataSource(response.data.map((item, index) => {
+        item.key = index;
+        return item;
+      })))
+    }
+    fetchData(url);
+  }, [url]);
+
   return (
     <div>
-      RuleCustomSchedule
+      <StyledRuleScheduleHours>
+        <h4>Set your weekly hours</h4>
+        <div>
+          <table>
+            <tbody>
+              {dataSource && dataSource.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <RuleDay {...item} />
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+      </StyledRuleScheduleHours>
     </div>
   );
 }
@@ -239,7 +361,11 @@ const EventTypeTimeDetailForm = (props) => {
 
       <BookingRangeFieldSet />
       <DurationFieldSet />
-      <RuleFieldSet />
+      <RuleFieldSet {...props} />
+
+      <WrapperFormFooter>
+        <FormButtonBlock />
+      </WrapperFormFooter>
     </Form>
   );
 }

@@ -7,7 +7,53 @@
     "location": "in-person",
     "bookingLink": "https://calendly.com/beckzayi/dev-catch-up",
     "active": true,
-    "description": "Des1"
+    "description": "Des1",
+    "start-sun": null,
+    "end-sun": null,
+    "start-mon": "08:30",
+    "end-mon": "18:00",
+    "start-tue": "08:30",
+    "end-tue": "18:00",
+    "start-wed": "08:30",
+    "end-wed": "18:00",
+    "start-thu": "08:30",
+    "end-thu": "21:00",
+    "start-fri": "08:30",
+    "end-fri": "18:00",
+    "hours": {
+      "sun": {
+        "start": null,
+        "end": null
+      },
+      "mon": {
+        "start": "08:30",
+        "end": "18:00"
+      },
+      "tue": {
+        "start": "08:30",
+        "end": "18:00"
+      },
+      "wed": {
+        "start": "08:30",
+        "end": "18:00"
+      },
+      "thu": {
+        "start": "08:30",
+        "end": "18:00"
+      },
+      "fri": {
+        "start": "08:30",
+        "end": "18:00"
+      },
+      "sat": {
+        "start": null,
+        "end": null
+      }
+    },
+    "mon": {
+      "start": "01:00",
+      "end": "11:00"
+    }
   },
   {
     "id": 2,
